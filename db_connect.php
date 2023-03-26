@@ -1,5 +1,4 @@
 <?php
-
 $username ="";
 $email ="";
 $errors = array();
@@ -54,13 +53,25 @@ if (isset($_POST['login'])) {
         $query= "SELECT * FROM users WHERE user_name='$username' AND password= '$password'";
 
         $results = mysqli_query($db, $query);
+
+        
+// Retrieve the tenant_id value from the first row of the result set
+if (mysqli_num_rows($results) > 0) {
+    $row = mysqli_fetch_assoc($results);
+    $tenant_id = $row["tenant_id"];
+    $_SESSION['tenant_id'] = $tenant_id;
+  }
+        
         if (mysqli_num_rows($results)== 1){
+
+            $_SESSION['tenant'] = 
             //check if user is admin or user
             $logged_in_user = mysqli_fetch_assoc($results);
             if ($logged_in_user['user_type'] == 'admin')
             {
                 $_SESSION['user'] = $logged_in_user;
                 $_SESSION['success']="You are now logged in";
+                
                 header('location: index.php'); //redirect to home page
             }else{
 

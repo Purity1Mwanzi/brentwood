@@ -10,7 +10,7 @@
 --------------------------------------------------------------*/
 body {
   font-family: "arial", sans-serif;
-  color: #444444;
+  color: var(--gray-dark);
   width: 100%;
   height: calc(100%);
 }

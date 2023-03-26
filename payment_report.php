@@ -65,7 +65,14 @@ $month_of = isset($_GET['month_of']) ? $_GET['month_of'] : date('Y-m');
 									<?php 
 									$i = 1;
 									$tamount = 0;
-									$payments  = $db->query("SELECT p.*,concat(t.lastname,', ',t.firstname,' ',t.middlename) as name,h.house_no FROM payments p inner join tenants t on t.id = p.tenant_id inner join houses h on h.id = t.house_id where date_format(p.date_created,'%Y-%m') = '$month_of' order by unix_timestamp(date_created)  asc");
+									if($_SESSION['ut'] == 1){
+										$payments  = $db->query("SELECT p.*,concat(t.lastname,', ',t.firstname,' ',t.middlename) as name,h.house_no FROM payments p inner join tenants t on t.id = p.tenant_id inner join houses h on h.id = t.house_id where date_format(p.date_created,'%Y-%m') = '$month_of' order by unix_timestamp(date_created)  asc");
+
+									}
+									else{
+										$payments  = $db->query("SELECT p.*,concat(t.lastname,', ',t.firstname,' ',t.middlename) as name,h.house_no FROM payments p inner join tenants t on t.id = p.tenant_id inner join houses h on h.id = t.house_id where date_format(p.date_created,'%Y-%m') = '$month_of' and p.tenant_id = {$_SESSION['tenant_id']} order by unix_timestamp(date_created)  asc");
+
+									}
 									if($payments->num_rows > 0 ):
 									while($row=$payments->fetch_assoc()):
 										$tamount += $row['amount'];

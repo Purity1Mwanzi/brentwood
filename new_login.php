@@ -1,5 +1,7 @@
 <?php
 session_start();
+
+
 $servername = "localhost";
 $username = "root";
 $password = "";
@@ -40,16 +42,23 @@ if (count($errors) ==0) {
          $result = mysqli_query($conn, $query);
 
          $usertype = '';
+         $user_id= '';
+         global $tenantid;
          while ($row = $result->fetch_assoc()) {
-             $_SESSION['user_type']= $row['user_type'];
-        
+            
+             $tenantid = $row['tenant_id'];
+             $_SESSION['tenant_id'] = $row['tenant_id'];
+             
+             $usertype = $row['user_type'];
+             $user_id=$row['id'];
          }
 
-       
+         $_SESSION['ut']= $usertype;
          
          echo json_encode([
             "status"=>'success',
-            "user_type"=>$usertype
+            "user_type"=>$usertype,
+            "user_id"=>$user_id
          ]);
          //header('location: index.php'); //redirect to home page
      }

@@ -1,4 +1,5 @@
 <?php 
+session_start();
 include 'db_connect.php'; 
 if(isset($_GET['id'])){
 $qry = $db->query("SELECT * FROM payments where id= ".$_GET['id']);
@@ -12,12 +13,28 @@ foreach($qry->fetch_array() as $k => $val){
         <input type="hidden" name="id" value="<?php echo isset($id) ? $id : '' ?>">
         <div id="msg"></div>
         <div class="form-group">
+       
             <label for="" class="control-label">Tenant</label>
+    
+            
             <select name="tenant_id" id="tenant_id" class="custom-select select2">
                 <option value=""></option>
 
             <?php 
-            $tenant = $db->query("SELECT *,concat(lastname,', ',firstname,' ',middlename) as name FROM tenants where status = 1 order by name asc");
+             $isTenant = $_SESSION['ut'] == 2;
+            if($isTenant){
+
+            
+
+                $tenant = $db->query("SELECT *,concat(lastname,', ',firstname,' ',middlename) as name FROM tenants where id = {$_SESSION['tenant_id']} and status = 1 order by name asc");
+
+            }
+            else{
+
+                
+                $tenant = $db->query("SELECT *,concat(lastname,', ',firstname,' ',middlename) as name FROM tenants where  status = 1 order by name asc");
+
+            }
             while($row=$tenant->fetch_assoc()):
             ?>
             <option value="<?php echo $row['id'] ?>" <?php echo isset($tenant_id) && $tenant_id == $row['id'] ? 'selected' : '' ?>><?php echo ucwords($row['name']) ?></option>

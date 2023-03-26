@@ -1,5 +1,4 @@
 <?php
-session_start();
 ini_set('display_errors', 1);
 Class Action {
 	private $db;
@@ -276,9 +275,18 @@ Class Action {
 		$data .= ", contact = '$contact' ";
 		$data .= ", house_id = '$house_id' ";
 		$data .= ", date_in = '$date_in' ";
+		$hashed_password = password_hash($lastname, PASSWORD_DEFAULT); // encrypt password before storing in database (security)
+
+		$usertype = 2;
+
+
 			if(empty($id)){
 				
 				$save = $this->db->query("INSERT INTO tenants set $data");
+				$tenantId = $this->db->insert_id;
+				$sql = "INSERT INTO users (user_name, email, user_type, tenant_id, password) VALUES ('$email','$email',$usertype,$tenantId,'$hashed_password')";
+				$this->db->query($sql);
+
 			}else{
 				$save = $this->db->query("UPDATE tenants set $data where id = $id");
 			}

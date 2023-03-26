@@ -11,11 +11,14 @@
 		<div class="row">
 			<!-- FORM Panel -->
 
+
+			
 			<!-- Table Panel -->
 			<div class="col-md-12">
 				<div class="card">
 					<div class="card-header">
 						<b>List of Payments</b>
+					
 						<span class="float:right"><a class="btn btn-primary btn-block btn-sm col-sm-2 float-right" href="javascript:void(0)" id="new_invoice">
 					<i class="fa fa-plus"></i> New Entry
 				</a></span>
@@ -35,7 +38,26 @@
 							<tbody>
 								<?php 
 								$i = 1;
-								$invoices = $db->query("SELECT p.*,concat(t.lastname,', ',t.firstname,' ',t.middlename) as name FROM payments p inner join tenants t on t.id = p.tenant_id where t.status = 1 order by date(p.date_created) desc ");
+
+								if( $_SESSION['ut'] == 1){ // landloard 
+									
+									//return all payments from tennts
+
+									$invoices = $db->query("SELECT p.*,t.id,concat(t.lastname,', ',t.firstname,' ',t.middlename) as name 
+								FROM payments p 
+								INNER JOIN tenants t ON t.id = p.tenant_id
+								WHERE t.status = 1
+								ORDER BY DATE(p.date_created) DESC");			
+								}
+								else{
+									/// then return payments pecific to that enant
+									$invoices = $db->query("SELECT p.*,t.id,concat(t.lastname,', ',t.firstname,' ',t.middlename) as name 
+									FROM payments p 
+									INNER JOIN tenants t ON t.id = p.tenant_id
+									WHERE t.status = 1 AND p.tenant_id = {$_SESSION['tenant_id']}
+									ORDER BY DATE(p.date_created) DESC");	
+								}
+															
 								while($row=$invoices->fetch_assoc()):
 									
 								?>

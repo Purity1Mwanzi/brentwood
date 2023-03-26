@@ -45,6 +45,7 @@
     }
     .input-group{
         margin: 10px 0px 10px 0px;
+    
     }
     label{
         display: block;
@@ -76,6 +77,7 @@
         border-radius: 5px;
         text-align: left;
     }
+
 </style>
 
 
@@ -153,9 +155,15 @@
                 dataType: "json",
                 encode: true,
             }).done(function (data) {
-                console.log(data)
+                
+                
                 if(data === "success"){
+                  
                     window.location.href = "login.php"
+                }
+                else{
+
+                    swal('LandLord Already Exists')
                 }
             });
       }

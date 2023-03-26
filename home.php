@@ -39,6 +39,8 @@
 <div class="containe-fluid">
 	<div class="row mt-3 ml-3 mr-3">
         <div class="col-lg-12">
+        <h3 style="font-size: 2rem; font-weight: bold; margin-bottom: 1rem; text-transform: uppercase;">Welcome back!</h3>
+
             <div class="card">
                 <div class="card-body">
                     

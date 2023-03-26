@@ -1,6 +1,6 @@
 <?php 
 // include('db_connect.php'); 
-session_start();
+
 ?>
 <!DOCTYPE html>
 <html>
@@ -20,65 +20,65 @@ session_start();
 </head>
 <body>
 <style>
-           body{ 
-                background-image:url("house.jpg"); 
-                background-repeat: no-repeat;
-                background-size: cover;
-           }
-                .header{
-    width: 30%;
-    margin: 50px auto 0px;
-    color:rgb(12, 8, 8);
-    background: #2f5766;
-    text-align: center;
-    border: 1px solid #2f5766;
-    border-bottom: none;
-    border-radius:10px 10px 0px 0px;
-    padding: 20px;
-}
-form, .content{
-    width: 30%;
-    margin: 0px auto;
-    padding: 20px;
-    border: 1px solid #b0c4de;
-    background: white;
-    border-radius:10px 10px 0px 0px;
+  body{
+        background-image:url("house.jpg");
+        background-repeat: no-repeat;
+        background-size: cover;
+    }
+    .header{
+        width: 30%;
+        margin: 50px auto 0px;
+        color:rgb(12, 8, 8);
+        background: #2f5766;
+        text-align: center;
+        border: 1px solid #2f5766;
+        border-bottom: none;
+        border-radius:10px 10px 0px 0px;
+        padding: 20px;
+    }
+    form, .content{
+        width: 30%;
+        margin: 0px auto;
+        padding: 20px;
+        border: 1px solid #b0c4de;
+        background: white;
+        border-radius:10px 10px 0px 0px;
+
+    }
+    .input-group{
+        margin: 10px 0px 10px 0px;
     
-}
-.input-group{
-    margin: 10px 0px 10px 0px;
-}
-label{
-    display: block;
-    text-align: left;
-    margin: 3px;
-}
-input{
-    height: 30px;
-    width: 93%;
-    padding: 10px;
-    font-size: 16px;
-    border-radius: 5px;
-    border: 1px solid gray;
-}
-.btn{
-    padding: 10px;
-    font-size: 15px;
-    color: white;
-    background: #2f5766;
-    border: none;
-    border-radius: 5px;
-}
-.error{
-    width: 92%;
-    margin: 0px auto;
-    padding: 10px;
-    border: 1px solid #a94442;
-    color: #a94442;
-    border-radius: 5px;
-    text-align: left;
-}
-                
+    }
+    label{
+        display: block;
+        text-align: left;
+        margin: 3px;
+    }
+    input{
+        height: 30px;
+        width: 93%;
+        padding: 10px;
+        font-size: 16px;
+        border-radius: 5px;
+        border: 1px solid gray;
+    }
+    .btn{
+        padding: 10px;
+        font-size: 15px;
+        color: white;
+        background: #2f5766;
+        border: none;
+        border-radius: 5px;
+    }
+    .error{
+        width: 92%;
+        margin: 0px auto;
+        padding: 10px;
+        border: 1px solid #a94442;
+        color: #a94442;
+        border-radius: 5px;
+        text-align: left;
+    }
   </style>
  
      <div class="header">
@@ -123,10 +123,19 @@ input{
                 dataType: "json",
                 encode: true,
             }).done(function (data) {
-               
+               console.log(data)
                 if(data.status === 'success'){
-                    window.location.href = 'index.php'
-                    localStorage.setItem("user-type",data.user_type);
+                    if(data.user_type === '2'){
+
+                        window.location.href = 'index.php?page=invoices'
+                    }
+
+                    else {
+
+                        window.location.href = 'index.php'
+                    }
+                   
+                    window.localStorage.setItem("user-type",JSON.stringify(data));
                 }
             });
 
