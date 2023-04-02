@@ -32,7 +32,6 @@ $_SESSION['user_type'] = 1;
         <a  id='navigate-to-tenants' href="index.php?page=tenants" class="nav-item nav-tenants"><span class='icon-field'><i class="fa fa-user-friends "></i></span> Tenants</a>
         <a href="index.php?page=invoices" class="nav-item nav-invoices"><span class='icon-field'><i class="fa fa-file-invoice "></i></span> Payments</a>
         <a href="index.php?page=reports" class="nav-item nav-reports"><span class='icon-field'><i class="fa fa-list-alt "></i></span> Reports</a>
-        <a href="index.php?page=notification" class="nav-item nav-notification"><span class='icon-field'><i class="fa fa-bell "></i></span> Notifications</a> 
     </div>
 
 </nav>

@@ -93,8 +93,8 @@
                                         <span class="float-right summary_icon"> <i class="fa fa-file-invoice "></i></span>
                                         <h4><b>
                                             <?php 
-                                             $payment = $db->query("SELECT sum(amount) as paid FROM payments where date(date_created) = '".date('Y-m-d')."' "); 
-                                             echo $payment->num_rows > 0 ? number_format($payment->fetch_array()['paid'],2) : 0;
+                                             $payment = $db->query("SELECT sum(amount) as paid FROM payments WHERE date_created >= DATE_SUB(CURDATE(), INTERVAL 30 DAY)");
+                                              echo $payment->num_rows > 0 ? number_format($payment->fetch_array()['paid'],2) : 0;
                                              ?>
                                         </b></h4>
                                         <p><b>Payments This Month</b></p>

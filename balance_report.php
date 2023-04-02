@@ -56,7 +56,7 @@
 									<?php 
 									$i = 1;
 									// $tamount = 0;
-									$tenants =$db->query("SELECT t.*,concat(t.lastname,', ',t.firstname,' ',t.middlename) as name,h.house_no,h.price FROM tenants t inner join houses h on h.id = t.house_id where t.status = 1 order by h.house_no desc ");
+									$tenants =$db->query("SELECT t.*,concat(t.lastname,', ',t.firstname,' ',t.middlename) as name,h.house_no,h.price FROM tenants t inner join houses h on h.id = t.house_id where t.status = 1 and t.id = {$_SESSION['tenant_id']} order by h.house_no desc ");
 									if($tenants->num_rows > 0):
 									while($row=$tenants->fetch_assoc()):
 										$months = abs(strtotime(date('Y-m-d')." 23:59:59") - strtotime($row['date_in']." 23:59:59"));
